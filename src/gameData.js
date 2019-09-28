@@ -1,6 +1,6 @@
 export const gameData = {
     intro: {
-        text: "You are a 4 year on Huboldt penguin living on a small island in "+
+        text: "You are a 4 year on Humboldt penguin living on a small island in "+
               "the Pacific near Peru. It is prime mating season!",
         actions: [{
             text: "Find your mate!",
@@ -21,15 +21,23 @@ export const gameData = {
         lifes: 2
     },
     tourists: {
-        text: "Tourists seen, annoying, maybe other time",
+        text: "You were just getting ready when you spotted a human not very " +
+              "far! He doesn't seem to be coming closer, but you're both "+
+              "very stressed now. This doesn't feel like a good spot!",
+        infoDump: "A 2006 study found that Humboldt penguins are extremely "+
+                  "sensitive to human presence, so much that a person passing "+
+                  "an incubating penguin at 150 m distance already provoked a "+
+                  "significant heart rate response, and breeding success was "+
+                  "significantly reduced at frequently visited sites."
         actions: [{
-            text: "Go home",
+            text: "Go back to the colony",
             nextState: "mating"
         }],
         lifes: 1
     },
     chicks: {
-        text: "Where nest",
+        text: "This place was ideal - now you need to find a place to nest to "+
+              "bring your younglings to the world!",
         actions: [{
             text: "old place",
             nextState: "old1"
