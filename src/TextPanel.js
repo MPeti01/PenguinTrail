@@ -1,4 +1,6 @@
 import React from 'react';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+
 
 import { gameData } from './gameData.js'
 
@@ -8,11 +10,6 @@ class TextPanel extends React.Component {
     this.state = { keyPressed: null }
   }
 
-  handleKeyPress = e => {
-    this.setState({keyPressed: e.key})
-  }
-
-
   render() {
     const gameState = gameData[this.props.gameState]
     return (
@@ -21,8 +18,13 @@ class TextPanel extends React.Component {
           <ul>
             {gameState.actions.map((action) => <li>{action.text}</li>)}
           </ul>
+          <KeyboardEventHandler
+            handleKeys={['0', '1']}
+            onKeyEvent={(key, e) => {
+                this.setState({keyPressed: key})
+                this.props.changeState(gameState.actions[key-'0'].nextState)
+            }} />
         </p>
-
     )
   }
 }
