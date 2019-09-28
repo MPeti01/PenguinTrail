@@ -6,7 +6,27 @@ import TextPanel from './TextPanel.js';
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { gameState: "start" };
+    this.state = { gameState: "start", variables: {} };
+  }
+
+  updateVariables(current, sideEffects) {
+      return Object.assign(current, sideEffects)
+  }
+
+  applyAction(action) {
+      if (typeof action.nextState === "string") {
+          this.setState({gameState: action.nextState,
+                         variables: this.updateVariables(this.state.variables,
+                                                         action.sideEffects)})
+          return action.nextState
+      } else {
+          const result = action.nextState(this.state.variables)
+          this.setState({gameState: result.nextState,
+                         variables: this.updateVariables(this.state.variables,
+                                                         result.sideEffects)})
+          return result.nextState
+      }
+
   }
 
   render() {
@@ -18,11 +38,10 @@ class Game extends React.Component {
             }}>
             <IllustrationPanel
               gameState={this.state.gameState}
-              changeState={(state) => this.setState({ gameState: state })}
             />
             <TextPanel
               gameState={this.state.gameState}
-              changeState={(state) => this.setState({ gameState: state })}
+              changeState={this.applyAction.bind(this)}
             />
           </div>
       )
