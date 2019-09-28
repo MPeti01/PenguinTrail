@@ -57,7 +57,7 @@ export const gameData = {
                   "Macquarie Island has caused landslides that killed penguins "+
                   "and destroyed nesting habitat.",
         actions: [{
-            text: "new place",
+            text: "Look for a new place near the coast instead",
             nextState: "new1"
         }],
         lifes: 1
