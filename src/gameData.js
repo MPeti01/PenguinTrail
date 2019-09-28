@@ -10,20 +10,23 @@ export const gameData = {
         }, {
             text: "Do nothing",
             nextState: "start"
-        }]
+        }],
+        lifes: 2,
     },
     stuffState: {
         text: "Did stuff",
         actions: [{
             text: "Go back",
             nextState: "start"
-        }]
+        }],
+        lifes: 1,
     },
     otherStuffState: {
         text: "Did other stuff",
         actions: [{
             text: "Go back",
             nextState: "start"
-        }]
+        }],
+        lifes: 0,
     }
 }

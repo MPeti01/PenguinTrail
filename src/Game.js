@@ -12,7 +12,10 @@ class Game extends React.Component {
   render() {
       return (
           <div style={{"word-spacing": "3px"}}>
-            <IllustrationPanel />
+            <IllustrationPanel
+              gameState={this.state.gameState}
+              changeState={(state) => this.setState({ gameState: state })}
+            />
             <TextPanel
               gameState={this.state.gameState}
               changeState={(state) => this.setState({ gameState: state })}
