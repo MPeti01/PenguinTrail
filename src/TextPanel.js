@@ -19,7 +19,7 @@ class TextPanel extends React.Component {
     const gameState = gameData[this.props.gameState]
     return (
         <p>
-          This is the text panel. {this.state.keyPressed ? this.state.keyPressed +' pressed!' : ''} {gameState.text}
+          {gameState.text}
           <ul style={{width: "200px"}}>
             {gameState.actions.map((action, index) => <li style={index === this.state.selectedIndex ? {color: "black", "background-color": "white"} : {}}>{action.text}</li>)}
           </ul>
