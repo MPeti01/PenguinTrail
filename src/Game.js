@@ -34,7 +34,7 @@ class Game extends React.Component {
           <div style={{
                 width: '70%',
                 position: 'absolute', left: '50%',
-                transform: 'translate(-30%, 0)'
+                transform: 'translate(-50%, 0)'
             }}>
             <IllustrationPanel
               gameState={this.state.gameState}

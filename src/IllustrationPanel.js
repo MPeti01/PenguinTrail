@@ -40,7 +40,7 @@ class IllustrationPanel extends React.Component {
     const address = pictureData[gameState.lifes].pics[picture].address;
     return (
     <img style={{
-                position: 'relative', left: '25%',
+                position: 'relative', left: '50%',
                 transform: 'translate(-50%, 0)'
             }}
          src={require(""+address)} width="256" height="256"/>
