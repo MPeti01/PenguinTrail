@@ -7,7 +7,12 @@ import { gameData } from './gameData.js'
 class TextPanel extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { keyPressed: null }
+    this.state = { selectedIndex: 0 }
+  }
+
+  modifySelection(offset) {
+      const numActions = gameData[this.props.gameState].actions.length
+      this.setState({selectedIndex: (this.state.selectedIndex+numActions+offset) % numActions})
   }
 
   render() {
@@ -15,14 +20,20 @@ class TextPanel extends React.Component {
     return (
         <p>
           This is the text panel. {this.state.keyPressed ? this.state.keyPressed +' pressed!' : ''} {gameState.text}
-          <ul>
-            {gameState.actions.map((action) => <li>{action.text}</li>)}
+          <ul style={{width: "200px"}}>
+            {gameState.actions.map((action, index) => <li style={index === this.state.selectedIndex ? {color: "black", "background-color": "white"} : {}}>{action.text}</li>)}
           </ul>
           <KeyboardEventHandler
-            handleKeys={['0', '1']}
+            handleKeys={['down', 'up', 'enter']}
             onKeyEvent={(key, e) => {
-                this.setState({keyPressed: key})
-                this.props.changeState(gameState.actions[key-'0'].nextState)
+                if (key === 'down') {
+                    this.modifySelection(+1)
+                } else if (key === 'up') {
+                    this.modifySelection(-1)
+                } else {
+                    this.props.changeState(gameState.actions[this.state.selectedIndex].nextState)
+                    this.setState({selectedIndex: 0})
+                }
             }} />
         </p>
     )

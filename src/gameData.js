@@ -7,6 +7,9 @@ export const gameData = {
         }, {
             text: "Do other stuff",
             nextState: "otherStuffState"
+        }, {
+            text: "Do nothing",
+            nextState: "start"
         }]
     },
     stuffState: {
