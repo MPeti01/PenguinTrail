@@ -87,6 +87,16 @@ class TextPanel extends React.Component {
     clearInterval(this.timerID);
   }
 
+  stateTransition(actionIndex) {
+      const gameState = gameData[this.props.gameState]
+      const action = gameState.actions[actionIndex]
+      const nextState = this.props.changeState(action)
+      this.setState({selectedIndex: 0})
+      if (nextState !== "start") {
+          this.setupTexts(gameData[nextState])
+      }
+  }
+
   render() {
     if (this.state.prevGameState !== this.props.gameState) {
         this.setState({
@@ -106,8 +116,8 @@ class TextPanel extends React.Component {
           {this.state.infoText ?
               <p style={{
                     fontSize: '15pt',
-                }}> 
-                {this.state.infoText.printedText()} 
+                }}>
+                {this.state.infoText.printedText()}
               </p> : ''}
           {this.state.mainText.finished() ?
               <ul style={{width: "100%"}}>
@@ -115,7 +125,8 @@ class TextPanel extends React.Component {
                     (actionText, index) =>
                       <li style={index === this.state.selectedIndex ?
                         {color: "black", backgroundColor: "white"} :
-                        {}}>
+                        {}}
+                          onClick={() => this.stateTransition(index)}>
                           {actionText.printedText()}
                       </li>)}
               </ul> : ''
@@ -128,12 +139,7 @@ class TextPanel extends React.Component {
                 } else if (key === 'up') {
                     this.modifySelection(-1)
                 } else {
-                    const action = gameState.actions[this.state.selectedIndex]
-                    const nextState = this.props.changeState(action)
-                    this.setState({selectedIndex: 0})
-                    if (nextState !== "start") {
-                        this.setupTexts(gameData[nextState])
-                    }
+                    this.stateTransition(this.state.selectedIndex)
                 }
             }} />
         </p>
