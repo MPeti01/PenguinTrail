@@ -47,7 +47,7 @@ class Game extends React.Component {
                 <h1> Penguin Trail </h1>
                 <p style={{
                     fontSize: '15px',
-                }}> A cautionary about how we affect the lives of penguins
+                }}> A cautionary tale about how we affect the lives of penguins
                 </p>
                 <p style={{
                     width: '100%',
