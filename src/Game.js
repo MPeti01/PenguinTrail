@@ -29,13 +29,13 @@ class Game extends React.Component {
       }
 
   }
-  
+
   start() {
       this.setState({gameState: "intro"});
   }
 
   render() {
-      
+
           if (this.state.gameState === "start") {
             return (
               <div style={{
@@ -47,7 +47,7 @@ class Game extends React.Component {
                 <h1> Penguin Trail </h1>
                 <p style={{
                     fontSize: '15px',
-                }}> A game about how human behaviour affects the life of penguins
+                }}> A cautionary about how we affect the lives of penguins
                 </p>
                 <p style={{
                     width: '100%',
@@ -61,7 +61,7 @@ class Game extends React.Component {
                 }} />
               </div>
                )
-              
+
           } else {
               return (
               <div style={{
