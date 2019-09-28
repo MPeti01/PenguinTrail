@@ -98,7 +98,7 @@ class TextPanel extends React.Component {
             }}>
           {this.state.mainText.printedText()}
           {this.state.mainText.finished() ?
-              <ul style={{width: "50%"}}>
+              <ul style={{width: "100%"}}>
                 {this.state.actionTexts.filter((text) => text.started()).map(
                     (actionText, index) =>
                       <li style={index === this.state.selectedIndex ?
