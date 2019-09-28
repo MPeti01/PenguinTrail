@@ -13,7 +13,10 @@ class Game extends React.Component {
       return (
           <div>
             <IllustrationPanel />
-            <TextPanel gameState={this.state.gameState} />
+            <TextPanel
+              gameState={this.state.gameState}
+              changeState={(state) => this.setState({ gameState: state })}
+            />
           </div>
       )
 

@@ -1,6 +1,6 @@
 export const gameData = {
     start: {
-        text: "started",
+        text: "Started. What to do?",
         actions: [{
             text: "Do some stuff",
             nextState: "stuffState"
