@@ -6,7 +6,7 @@ import TextPanel from './TextPanel.js';
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { gameState: "start", variables: {} };
+    this.state = { gameState: "intro", variables: {} };
   }
 
   updateVariables(current, sideEffects) {

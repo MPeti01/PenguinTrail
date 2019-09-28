@@ -1,15 +1,15 @@
 export const gameData = {
     intro: {
-        text: "You are a 4 year on Huboldt penguin living on a small island in "
+        text: "You are a 4 year on Huboldt penguin living on a small island in "+
               "the Pacific near Peru. It is prime mating season!",
         actions: [{
             text: "Find your mate!",
             nextState: "mating"
-        },
-        lifes: 2,
+        }],
+        lifes: 2
     },
     mating: {
-        text: "You've met with your mate. Where do you want to spend some time "
+        text: "You've met with your mate. Where do you want to spend some time "+
               "together?",
         actions: [{
             text: "The nicest lagoon around!",
@@ -70,7 +70,7 @@ export const gameData = {
         text: "Found good nest",
         actions: [{
             text: "egg hatching",
-            nextState: hatched
+            nextState: "hatched"
         }],
         lifes: 2
     },
