@@ -91,10 +91,14 @@ class TextPanel extends React.Component {
     }
     const gameState = gameData[this.props.gameState]
     return (
-        <p>
+        <p style={{
+                width: '100%',
+                position: 'absolute', left: '50%',
+                transform: 'translate(-50%, 0)'
+            }}>
           {this.state.mainText.printedText()}
           {this.state.mainText.finished() ?
-              <ul style={{width: "400px"}}>
+              <ul style={{width: "50%"}}>
                 {this.state.actionTexts.filter((text) => text.started()).map(
                     (actionText, index) =>
                       <li style={index === this.state.selectedIndex ?

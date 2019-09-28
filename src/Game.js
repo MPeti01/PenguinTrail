@@ -11,7 +11,11 @@ class Game extends React.Component {
 
   render() {
       return (
-          <div>
+          <div style={{
+                width: '70%',
+                position: 'absolute', left: '50%',
+                transform: 'translate(-30%, 0)'
+            }}>
             <IllustrationPanel
               gameState={this.state.gameState}
               changeState={(state) => this.setState({ gameState: state })}
