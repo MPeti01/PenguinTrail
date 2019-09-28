@@ -1,4 +1,7 @@
 export const gameData = {
+    start: {
+        nextState: "intro",
+    },
     intro: {
         text: "You are a 4 year on Humboldt penguin living on a small island in "+
               "the Pacific near Peru. It is prime mating season!",
@@ -172,7 +175,7 @@ export const gameData = {
         text: "People are bad",
         actions: [{
             text: "Back to start",
-            nextState: "intro"
+            nextState: "start"
         }],
         lifes: 1
     }
