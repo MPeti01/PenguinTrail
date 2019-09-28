@@ -20,7 +20,7 @@ export const gameData = {
         }]
     },
     otherStuffState: {
-        text: "Did other stuff",
+        text: "Did other stuff! with significantly longer text",
         actions: [{
             text: "Go back",
             nextState: "start"

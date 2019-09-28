@@ -6,8 +6,13 @@ import { gameData } from './gameData.js'
 
 class TextPanel extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { selectedIndex: 0 }
+      super(props);
+      this.state = {
+          selectedIndex: 0,
+          prevGameState: this.props.gameState,
+          printed: '',
+          pendingPrint: gameData[this.props.gameState].text
+      }
   }
 
   modifySelection(offset) {
@@ -15,14 +20,50 @@ class TextPanel extends React.Component {
       this.setState({selectedIndex: (this.state.selectedIndex+numActions+offset) % numActions})
   }
 
+  updateText() {
+      if (this.state.pendingPrint) {
+          const newPrinted = this.state.printed +
+                             this.state.pendingPrint.charAt(0)
+          const newToPrint = this.state.pendingPrint.substring(1)
+          this.setState({printed: newPrinted, pendingPrint: newToPrint})
+      }
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.updateText(),
+      30
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
   render() {
+    if (this.state.prevGameState !== this.props.gameState) {
+        this.setState({
+            prevGameState: this.props.gameState,
+            printed: '',
+            pendingPrint: gameData[this.props.gameState].text
+        })
+    }
     const gameState = gameData[this.props.gameState]
     return (
         <p>
-          {gameState.text}
-          <ul style={{width: "200px"}}>
-            {gameState.actions.map((action, index) => <li style={index === this.state.selectedIndex ? {color: "black", "background-color": "white"} : {}}>{action.text}</li>)}
-          </ul>
+          {this.state.printed}
+          {this.state.pendingPrint ?
+              '' :
+              <ul style={{width: "200px"}}>
+                {gameState.actions.map(
+                    (action, index) =>
+                      <li style={index === this.state.selectedIndex ?
+                        {color: "black", "background-color": "white"} :
+                        {}}>
+                          {action.text}
+                      </li>)}
+              </ul>
+          }
           <KeyboardEventHandler
             handleKeys={['down', 'up', 'enter']}
             onKeyEvent={(key, e) => {
