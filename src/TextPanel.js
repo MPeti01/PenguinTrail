@@ -1,8 +1,37 @@
 import React from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
-
 import { gameData } from './gameData.js'
+
+class RollingText {
+    constructor(text) {
+        this.printed = ''
+        this.toPrint = text
+    }
+
+    update() {
+        if (this.toPrint !== '') {
+            this.printed = this.printed +
+                               this.toPrint.charAt(0)
+            this.toPrint = this.toPrint.substring(1)
+            return true
+        } else {
+            return false
+        }
+    }
+
+    started() {
+        return this.printed !== ''
+    }
+
+    finished() {
+        return this.toPrint === ''
+    }
+
+    printedText() {
+        return this.printed
+    }
+}
 
 class TextPanel extends React.Component {
   constructor(props) {
@@ -10,9 +39,17 @@ class TextPanel extends React.Component {
       this.state = {
           selectedIndex: 0,
           prevGameState: this.props.gameState,
-          printed: '',
-          pendingPrint: gameData[this.props.gameState].text
+          mainText: new RollingText(''),
+          actionTexts: []
       }
+  }
+
+  setupTexts(stateData) {
+      this.setState({
+          mainText: new RollingText(stateData.text),
+          actionTexts: stateData.actions.map(
+              (action) => new RollingText(action.text))
+      })
   }
 
   modifySelection(offset) {
@@ -21,11 +58,14 @@ class TextPanel extends React.Component {
   }
 
   updateText() {
-      if (this.state.pendingPrint) {
-          const newPrinted = this.state.printed +
-                             this.state.pendingPrint.charAt(0)
-          const newToPrint = this.state.pendingPrint.substring(1)
-          this.setState({printed: newPrinted, pendingPrint: newToPrint})
+      if (!this.state.mainText.finished()) {
+          var text = (this.state.mainText)
+          text.update()
+          this.setState({mainText: text})
+      } else {
+          var texts = (this.state.actionTexts)
+          texts.some((text) => text.update())
+          this.setState({actionTexts: texts})
       }
   }
 
@@ -34,6 +74,7 @@ class TextPanel extends React.Component {
       () => this.updateText(),
       30
     );
+    this.setupTexts(gameData[this.props.gameState])
   }
 
   componentWillUnmount() {
@@ -51,18 +92,17 @@ class TextPanel extends React.Component {
     const gameState = gameData[this.props.gameState]
     return (
         <p>
-          {this.state.printed}
-          {this.state.pendingPrint ?
-              '' :
-              <ul style={{width: "200px"}}>
-                {gameState.actions.map(
-                    (action, index) =>
+          {this.state.mainText.printedText()}
+          {this.state.mainText.finished() ?
+              <ul style={{width: "400px"}}>
+                {this.state.actionTexts.filter((text) => text.started()).map(
+                    (actionText, index) =>
                       <li style={index === this.state.selectedIndex ?
-                        {color: "black", "background-color": "white"} :
+                        {color: "black", backgroundColor: "white"} :
                         {}}>
-                          {action.text}
+                          {actionText.printedText()}
                       </li>)}
-              </ul>
+              </ul> : ''
           }
           <KeyboardEventHandler
             handleKeys={['down', 'up', 'enter']}
@@ -72,8 +112,10 @@ class TextPanel extends React.Component {
                 } else if (key === 'up') {
                     this.modifySelection(-1)
                 } else {
-                    this.props.changeState(gameState.actions[this.state.selectedIndex].nextState)
+                    const nextState = gameState.actions[this.state.selectedIndex].nextState
+                    this.props.changeState(nextState)
                     this.setState({selectedIndex: 0})
+                    this.setupTexts(gameData[nextState])
                 }
             }} />
         </p>

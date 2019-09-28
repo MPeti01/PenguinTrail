@@ -11,7 +11,7 @@ class Game extends React.Component {
 
   render() {
       return (
-          <div style={{"word-spacing": "3px"}}>
+          <div>
             <IllustrationPanel />
             <TextPanel
               gameState={this.state.gameState}
