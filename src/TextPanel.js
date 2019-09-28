@@ -112,8 +112,8 @@ class TextPanel extends React.Component {
                 } else if (key === 'up') {
                     this.modifySelection(-1)
                 } else {
-                    const nextState = gameState.actions[this.state.selectedIndex].nextState
-                    this.props.changeState(nextState)
+                    const action = gameState.actions[this.state.selectedIndex]
+                    const nextState = this.props.changeState(action)
                     this.setState({selectedIndex: 0})
                     this.setupTexts(gameData[nextState])
                 }
