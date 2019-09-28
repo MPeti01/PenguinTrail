@@ -217,11 +217,34 @@ export const gameData = {
         lifes: 1
     },
     lessonsLearned: {
-        text: "People are bad",
+        text: "We are all responsible for protecting our environment.\n Otherwise the "+
+              "penguins will be among the countless species driven to extinction. "+
+              "Each of us is the reason for penguins dying. But we can do better!",
+        actions: [{
+            text: "Continue",
+            nextState: "lessonsLearned2"
+        }],
+        lifes: 1
+    },
+    lessonsLearned2: {
+        text: "If we can reduce our plastic consumption and "+
+              "buy produce from environmentally friendly businesses, "+
+              "the penguins might stand a chance. It is also important to reduce our "+
+              "carbon footprint, for example by using tranport and bikes instead "+
+              "of cars and avoiding flying. Otherwise climate change will destroy the "+
+              "haitat of countless creatures.",
+        actions: [{
+            text: "Continue",
+            nextState: "end"
+        }],
+        lifes: 1
+    },
+    end: {
+        text: "Thank you for playing!",
         actions: [{
             text: "Back to start",
             nextState: "start"
         }],
-        lifes: 1
+        lifes: 2
     }
 }
