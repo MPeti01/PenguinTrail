@@ -103,7 +103,12 @@ class TextPanel extends React.Component {
                 transform: 'translate(-50%, 0)'
             }}>
           {this.state.mainText.printedText()}
-          {this.state.infoText? this.state.infoText.printedText() : ''}
+          {this.state.infoText ?
+              <p style={{
+                    fontSize: '15pt',
+                }}> 
+                {this.state.infoText.printedText()} 
+              </p> : ''}
           {this.state.mainText.finished() ?
               <ul style={{width: "100%"}}>
                 {this.state.actionTexts.filter((text) => text.started()).map(
@@ -126,7 +131,9 @@ class TextPanel extends React.Component {
                     const action = gameState.actions[this.state.selectedIndex]
                     const nextState = this.props.changeState(action)
                     this.setState({selectedIndex: 0})
-                    this.setupTexts(gameData[nextState])
+                    if (nextState !== "start") {
+                        this.setupTexts(gameData[nextState])
+                    }
                 }
             }} />
         </p>
