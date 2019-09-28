@@ -40,6 +40,7 @@ class TextPanel extends React.Component {
           selectedIndex: 0,
           prevGameState: this.props.gameState,
           mainText: new RollingText(''),
+          infoText: null,
           actionTexts: []
       }
   }
@@ -47,6 +48,7 @@ class TextPanel extends React.Component {
   setupTexts(stateData) {
       this.setState({
           mainText: new RollingText(stateData.text),
+          infoText: stateData.infoDump != null ? new RollingText(stateData.infoDump) : null,
           actionTexts: stateData.actions.map(
               (action) => new RollingText(action.text))
       })
@@ -62,6 +64,10 @@ class TextPanel extends React.Component {
           var text = (this.state.mainText)
           text.update()
           this.setState({mainText: text})
+      } else if (this.state.infoText != null && !this.state.infoText.finished()) {
+          var text = (this.state.infoText)
+          text.update()
+          this.setState({infoText: text})
       } else {
           var texts = (this.state.actionTexts)
           texts.some((text) => text.update())
@@ -97,6 +103,7 @@ class TextPanel extends React.Component {
                 transform: 'translate(-50%, 0)'
             }}>
           {this.state.mainText.printedText()}
+          {this.state.infoText? this.state.infoText.printedText() : ''}
           {this.state.mainText.finished() ?
               <ul style={{width: "100%"}}>
                 {this.state.actionTexts.filter((text) => text.started()).map(

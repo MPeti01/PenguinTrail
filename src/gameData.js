@@ -28,7 +28,7 @@ export const gameData = {
                   "sensitive to human presence, so much that a person passing "+
                   "an incubating penguin at 150 m distance already provoked a "+
                   "significant heart rate response, and breeding success was "+
-                  "significantly reduced at frequently visited sites."
+                  "significantly reduced at frequently visited sites.",
         actions: [{
             text: "Go back to the colony",
             nextState: "mating"
@@ -39,7 +39,7 @@ export const gameData = {
         text: "This place was ideal - now you need to find a place to nest to "+
               "bring your younglings to the world!",
         actions: [{
-            text: "old place",
+            text: "Go to your usual nesting place near the coast",
             nextState: "old1"
         },{
             text: "new place",
